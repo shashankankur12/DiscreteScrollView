@@ -2,14 +2,12 @@ apply plugin: 'com.android.library'
 apply from: rootProject.file('release-bintray.gradle')
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    namespace = "com.yarolegovich.discretescrollview"
+    compileSdk = rootProject.compileSdk
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 26
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

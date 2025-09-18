@@ -1,6 +1,17 @@
 apply plugin: 'com.android.library'
-apply from: '../release-bintray.gradle'
+apply plugin: 'maven-publish'
+apply plugin: 'org.jetbrains.kotlin.android'
 
+afterEvaluate {
+    android.libraryVariants.each{ v->
+        publishing.publications.create(v.name, MavenPublication) {
+                from components.findByName(v.name)
+                groupId = 'com.yarolegovich'
+                artifactId = 'discrete-scrollview'
+                version = '1.5.7'
+        }
+    }
+}
 android {
     namespace = "com.yarolegovich.discretescrollview"
     compileSdk = rootProject.compileSdk
@@ -10,6 +21,13 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 

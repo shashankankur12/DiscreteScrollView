@@ -21,8 +21,7 @@ import java.util.List;
 
 public class WeatherActivity extends AppCompatActivity implements
         DiscreteScrollView.ScrollStateChangeListener<ForecastAdapter.ViewHolder>,
-        DiscreteScrollView.OnItemChangedListener<ForecastAdapter.ViewHolder>,
-        View.OnClickListener {
+        DiscreteScrollView.OnItemChangedListener<ForecastAdapter.ViewHolder> {
 
     private List<Forecast> forecasts;
 
@@ -50,9 +49,9 @@ public class WeatherActivity extends AppCompatActivity implements
 
         forecastView.setForecast(forecasts.get(0));
 
-        findViewById(R.id.home).setOnClickListener(this);
-        findViewById(R.id.btn_transition_time).setOnClickListener(this);
-        findViewById(R.id.btn_smooth_scroll).setOnClickListener(this);
+        findViewById(R.id.home).setOnClickListener(view -> {finish();});
+        findViewById(R.id.btn_transition_time).setOnClickListener(view -> {DiscreteScrollViewOptions.configureTransitionTime(cityPicker);});
+        findViewById(R.id.btn_smooth_scroll).setOnClickListener(view -> { DiscreteScrollViewOptions.smoothScrollToUserSelectedPosition(cityPicker, view);});
     }
 
     @Override
@@ -81,21 +80,6 @@ public class WeatherActivity extends AppCompatActivity implements
         if (newIndex >= 0 && newIndex < itemCount) {
             Forecast next = forecasts.get(newIndex);
             forecastView.onScroll(1f - Math.abs(position), current, next);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.home:
-                finish();
-                break;
-            case R.id.btn_transition_time:
-                DiscreteScrollViewOptions.configureTransitionTime(cityPicker);
-                break;
-            case R.id.btn_smooth_scroll:
-                DiscreteScrollViewOptions.smoothScrollToUserSelectedPosition(cityPicker, v);
-                break;
         }
     }
 

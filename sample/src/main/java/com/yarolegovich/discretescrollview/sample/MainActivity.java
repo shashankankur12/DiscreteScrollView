@@ -17,7 +17,7 @@ import com.yarolegovich.discretescrollview.sample.shop.ShopActivity;
 import com.yarolegovich.discretescrollview.sample.weather.WeatherActivity;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final Uri URL_TAYA_BEHANCE = Uri.parse("https://www.behance.net/yurkivt");
     private static final Uri URL_SHOP_PHOTOS = Uri.parse("https://herriottgrace.com/collections/all");
@@ -36,13 +36,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        findViewById(R.id.preview_shop).setOnClickListener(this);
-        findViewById(R.id.preview_weather).setOnClickListener(this);
-        findViewById(R.id.preview_vertical).setOnClickListener(this);
+        findViewById(R.id.preview_shop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                start(ShopActivity.class);
+            }
+        });
+        findViewById(R.id.preview_weather).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                start(WeatherActivity.class);
+            }
+        });
+        findViewById(R.id.preview_vertical).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                start(GalleryActivity.class);
+            }
+        });
 
-        findViewById(R.id.credit_city_icons).setOnClickListener(this);
-        findViewById(R.id.credit_shop_photos).setOnClickListener(this);
-        findViewById(R.id.credit_taya).setOnClickListener(this);
+        findViewById(R.id.credit_city_icons).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open(URL_CITY_ICONS);
+            }
+        });
+        findViewById(R.id.credit_shop_photos).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open(URL_SHOP_PHOTOS);
+            }
+        });
+        findViewById(R.id.credit_taya).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open(URL_TAYA_BEHANCE);
+            }
+        });
     }
 
     @Override
@@ -60,29 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.preview_shop:
-                start(ShopActivity.class);
-                break;
-            case R.id.preview_weather:
-                start(WeatherActivity.class);
-                break;
-            case R.id.preview_vertical:
-                start(GalleryActivity.class);
-                break;
-            case R.id.credit_city_icons:
-                open(URL_CITY_ICONS);
-                break;
-            case R.id.credit_shop_photos:
-                open(URL_SHOP_PHOTOS);
-                break;
-            case R.id.credit_taya:
-                open(URL_TAYA_BEHANCE);
-                break;
-        }
-    }
 
     private void open(Uri url) {
         Intent intent = new Intent(Intent.ACTION_VIEW);

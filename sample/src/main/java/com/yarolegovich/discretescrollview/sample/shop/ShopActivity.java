@@ -23,8 +23,7 @@ import java.util.List;
  * Created by yarolegovich on 07.03.2017.
  */
 
-public class ShopActivity extends AppCompatActivity implements DiscreteScrollView.OnItemChangedListener<ShopAdapter.ViewHolder>,
-        View.OnClickListener {
+public class ShopActivity extends AppCompatActivity implements DiscreteScrollView.OnItemChangedListener<ShopAdapter.ViewHolder> {
 
     private List<Item> data;
     private Shop shop;
@@ -58,38 +57,42 @@ public class ShopActivity extends AppCompatActivity implements DiscreteScrollVie
 
         onItemChanged(data.get(0));
 
-        findViewById(R.id.item_btn_rate).setOnClickListener(this);
-        findViewById(R.id.item_btn_buy).setOnClickListener(this);
-        findViewById(R.id.item_btn_comment).setOnClickListener(this);
-
-        findViewById(R.id.home).setOnClickListener(this);
-        findViewById(R.id.btn_smooth_scroll).setOnClickListener(this);
-        findViewById(R.id.btn_transition_time).setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_btn_rate:
+        findViewById(R.id.item_btn_rate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 int realPosition = infiniteAdapter.getRealPosition(itemPicker.getCurrentItem());
                 Item current = data.get(realPosition);
                 shop.setRated(current.getId(), !shop.isRated(current.getId()));
                 changeRateButtonState(current);
-                break;
-            case R.id.home:
-                finish();
-                break;
-            case R.id.btn_transition_time:
-                DiscreteScrollViewOptions.configureTransitionTime(itemPicker);
-                break;
-            case R.id.btn_smooth_scroll:
-                DiscreteScrollViewOptions.smoothScrollToUserSelectedPosition(itemPicker, v);
-                break;
-            default:
-                showUnsupportedSnackBar();
-                break;
-        }
+            }
+        });
+        findViewById(R.id.item_btn_buy).setOnClickListener(view -> {showUnsupportedSnackBar();});
+        findViewById(R.id.item_btn_comment).setOnClickListener(view -> {showUnsupportedSnackBar();});
+
+        findViewById(R.id.home).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                    }
+                }
+        );
+        findViewById(R.id.btn_smooth_scroll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DiscreteScrollViewOptions.smoothScrollToUserSelectedPosition(itemPicker, view);
+            }
+        });
+        findViewById(R.id.btn_transition_time).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DiscreteScrollViewOptions.configureTransitionTime(itemPicker);
+                    }
+                }
+        );
     }
+
 
     private void onItemChanged(Item item) {
         currentItemName.setText(item.getName());

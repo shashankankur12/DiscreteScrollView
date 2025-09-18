@@ -33,7 +33,7 @@ ext {
             annotations   : 'androidx.annotation:annotation:1.9.1',
             androidxCompat: 'androidx.appcompat:appcompat:1.7.0',
             glide         : 'com.github.bumptech.glide:glide:4.16.0',
-            materialPrefs : 'com.yarolegovich:mp:1.1.6'
+            materialPrefs : 'com.github.shashankankur12:MaterialPreferences:1.1.7'
     ]
 
     testDeps = [

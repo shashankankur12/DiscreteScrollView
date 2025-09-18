@@ -16,8 +16,7 @@ import java.util.List;
 
 public class GalleryActivity extends AppCompatActivity implements
         DiscreteScrollView.ScrollListener<GalleryAdapter.ViewHolder>,
-        DiscreteScrollView.OnItemChangedListener<GalleryAdapter.ViewHolder>,
-        View.OnClickListener {
+        DiscreteScrollView.OnItemChangedListener<GalleryAdapter.ViewHolder> {
 
     private ArgbEvaluator evaluator;
     private int currentOverlayColor;
@@ -40,21 +39,20 @@ public class GalleryActivity extends AppCompatActivity implements
         itemPicker.addOnItemChangedListener(this);
         itemPicker.scrollToPosition(1);
 
-        findViewById(R.id.home).setOnClickListener(this);
-        findViewById(R.id.fab_share).setOnClickListener(this);
+        findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        findViewById(R.id.fab_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                share(view);
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.home:
-                finish();
-                break;
-            case R.id.fab_share:
-                share(v);
-                break;
-        }
-    }
 
     @Override
     public void onScroll(

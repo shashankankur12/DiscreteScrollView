@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply from: rootProject.file('release-bintray.gradle')
+apply from: '../release-bintray.gradle'
 
 android {
     namespace = "com.yarolegovich.discretescrollview"
